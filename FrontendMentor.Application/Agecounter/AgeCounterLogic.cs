@@ -23,33 +23,24 @@ public static class AgeCounterLogic
 
 	public static int CheckMonths()
 	{
-		if ((Birth.Day > _today.Day && Birth.Month < _today.Month) || (Birth.Day <= _today.Day && Birth.Month == _today.Month))
-		{
-			return 0;
-		}
-
 		const int monthsOfYear = 12;
-
-		if (Birth.Day >= _today.Day && Birth.Month >= _today.Month)
+		
+		if (Birth.Day > _today.Day)
 		{
-			return monthsOfYear - (Birth.Month - _today.Month) - 1;
+			return (_today.Month - Birth.Month - 1 + monthsOfYear) % monthsOfYear;
 		}
-
-		if (Birth.Day <= _today.Day && Birth.Month > _today.Month)
-		{
-			return (monthsOfYear + _today.Month) - Birth.Month;
-		}
-
-		return Birth.Month;
+	
+		return (_today.Month - Birth.Month + monthsOfYear) % monthsOfYear;
+		
 	}
 
 	public static int CheckYears()
 	{
-		if (_today.Day < Birth.Day && _today.Month <= Birth.Month)
-		{
-			return (_today.Year - Birth.Year) - 1;
+		if(_today.Month > Birth.Month || (_today.Month == Birth.Month && _today.Day >= Birth.Day)) {
+			return (_today.Year - Birth.Year);
 		}
 
-		return (_today.Year - Birth.Year);
+
+		return (_today.Year - Birth.Year) - 1;
 	}
 }
