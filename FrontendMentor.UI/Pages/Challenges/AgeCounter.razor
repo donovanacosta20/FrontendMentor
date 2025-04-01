@@ -1,77 +1,49 @@
 ﻿@page "/agecounter"
-@using FrontendMentor.Application.Agecounter
-@using System.ComponentModel.DataAnnotations
-
+@using FrontendMentor.Core.agecounter.Application;
 
 <div class="agecounter-container">
-	<form class="agecounter-form">
+	<EditForm class="agecounter-form" Model="_ageCounterHandle">
 		<div class="agecounter-form-section">
 			<label>Day</label>
-			<InputText @bind-Value="Day"
+			<InputText @bind-Value="_ageCounterHandle.DateInfo.Day"
 			placeholder="DD" />
-			<p>@messageErrorDay</p>
+			<p>@_ageCounterHandle.DateError.ErrorDay</p>
 		</div>
 
 		<div class="agecounter-form-section">
 			<label>Month</label>
-			<InputText @bind-Value="Month"
+			<InputText @bind-Value="_ageCounterHandle.DateInfo.Month"
 			placeholder="MM" />
-			<p>@messageErrorMonth</p>
+			<p>@_ageCounterHandle.DateError.ErrorMonth</p>
 		</div>
 
 		<div class="agecounter-form-section">
 			<label>Year</label>
-			<InputText @bind-Value="Year"
+			<InputText @bind-Value="_ageCounterHandle.DateInfo.Year"
 			placeholder="YYYY" />
-			<p>@messageErrorYear</p>
+			<p>@_ageCounterHandle.DateError.ErrorYear</p>
 		</div>
 
-		<button type="submit" @onclick="GetResult">
+		<button @onclick="_ageCounterHandle.HandleResult" @onclick:preventDefault="true"
+		type="submit"
+		@onclick:stopPropagation="true">
 			<img src=".\challengesResources\agecounter\icon-arrow.svg" alt="" />
 		</button>
-	</form>
-
+	</EditForm>
 
 	<div>
-		<p><span>@dayResult</span> days</p>
-		<p><span>@monthResult</span> months</p>
-		<p><span>@yearResult</span> years</p>
+		<p><span>@_ageCounterHandle.DateInfo.YearResult</span> years</p>
+		<p><span>@_ageCounterHandle.DateInfo.MonthResult</span> months</p>
+		<p><span>@_ageCounterHandle.DateInfo.DayResult</span> days</p>
 	</div>
-
-
 </div>
 
-
 @code {
-	private string dayResult = "--";
-	private string monthResult = "--";
-	private string yearResult = "--";
 
-	private string Day = string.Empty;
-	private string Month = string.Empty;
-	private string Year = string.Empty;
+	public required AgeCounterHandle _ageCounterHandle;
 
-	private string messageErrorDay = string.Empty;
-	private string messageErrorMonth = string.Empty;
-	private string messageErrorYear = string.Empty;
-
-	private bool CheckRightDate()
+	protected override void OnInitialized()
 	{
-		int flagDate = DateTime.DaysInMonth(Convert.ToInt16(Year), Convert.ToInt16(Month));
-		return Convert.ToInt16(Day) <= flagDate;
-	}
-
-	private bool IsFieldEmpty()
-	{
-		return string.IsNullOrEmpty(Day) && string.IsNullOrEmpty(Month) && string.IsNullOrEmpty(Year);
-	}
-
-	private void GetResult()
-	{
-		AgeCounterLogic.Birth = new DateTime(Convert.ToInt16(Year), Convert.ToInt16(Month), Convert.ToInt16(Day));
-
-		dayResult = AgeCounterLogic.CheckDays().ToString();
-		monthResult = AgeCounterLogic.CheckMonths().ToString();
-		yearResult = AgeCounterLogic.CheckYears().ToString();
+		_ageCounterHandle = new AgeCounterHandle();
 	}
 }
