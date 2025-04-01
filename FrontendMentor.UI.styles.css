@@ -1,0 +1,52 @@
+/* /Pages/Challenges/QrCode.razor.rz.scp.css */
+@font-face {
+	font-family: "Outfit";
+	src: url(./challengesResources/qrCode/fonts/Outfit-Bold.ttf), 
+}
+
+@font-face {
+	font-family: "Outfit";
+	src: url(./challengesResources/qrCode/fonts/Outfit-Regular.ttf),
+}
+
+.main[b-g3usxz8pjt] {
+	height: 100vh;
+	overflow: hidden;
+	display: grid;
+	place-items: center;
+	background-color: hsl(212, 45%, 89%);
+}
+
+.card-container[b-g3usxz8pjt] {
+	width: 320px;
+	height: 499px;
+	padding: 16px 16px 40px 16px;
+	background-color: white;
+	border-radius: 20px;
+}
+
+.card-img[b-g3usxz8pjt] {
+	margin-bottom: 24px;
+	width:288px;
+	height:288px;
+}
+
+.card-title[b-g3usxz8pjt] {
+	font-family: Outfit;
+	color: hsl(218, 44%, 22%);
+	font-size: 22px;
+	line-height: 120%;
+	font-weight: 700;
+	text-align: center;
+	margin-bottom: 1rem;
+}
+
+.card-description[b-g3usxz8pjt] {
+	font-family: Outfit;
+	font-size: 15px;
+	color: hsl(216, 15%, 48%);
+	font-weight: 400;
+	line-height: 140%;
+	letter-spacing: 0.2px;
+	text-align: center;
+}
